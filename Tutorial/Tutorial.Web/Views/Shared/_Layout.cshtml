@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <environment include="Development">
+       @*开发环境*@
+    </environment>
+    <environment exclude="Development">
+        @*生产环境*@
+   </environment>
+</head>
+<body>
+    <div>
+
+        @if (SignInManager.IsSignedIn(User))//登录判断
+        {
+        <form asp-controller="Account" asp-action="Logout" method="post" id="LogoutForm">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a href="javascript:document.getElementById('LogoutForm').submit()">登出</a>
+                </li>
+            </ul>
+        </form>
+        }
+        else
+        {
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a asp-controller="Account" asp-action="Register">注册</a>
+                </li>
+                <li class="nav-item">
+                    <a asp-controller="Account" asp-action="Login">登录</a>
+                </li>
+            </ul>
+                }
+
+           
+        </div>
+    <div>
+        @RenderBody()
+    </div>
+    <div>
+        @RenderSection("bottom", required: false)
+    </div>
+    @*两张方式*@
+    @await Component.InvokeAsync("Welcome")
+    <vc:welcome></vc:welcome>
+    <script src="~/node_modules/jquery/dist/jquery.js"></script>
+    <script src="~/node_modules/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/node_modules/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.js"></script>
+</body>
+</html>

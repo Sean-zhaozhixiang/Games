@@ -1,0 +1,14 @@
+﻿@model IEnumerable<Tutorial.Web.ViewModels.StudenViewModel>
+<table>
+    <thead>
+        <tr>
+            <th>姓名</th>
+            <th>年龄</th>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        <partial name="_StudentRow" for="@item"/>
+    }
+
+</table>
